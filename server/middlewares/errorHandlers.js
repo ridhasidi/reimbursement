@@ -16,6 +16,12 @@ function errorHandlers(err, req, res, next) {
   } else if (err.message === "USER_NOT_FOUND") {
     code = 404;
     msg = "User not found";
+  } else if (err.message === "DATA_NOT_FOUND") {
+    code = 404;
+    msg = "Data not found";
+  } else if (err.message === "NOT_ENOUGH_PERMISSION") {
+    code = 403;
+    msg = "Forbidden to access the resource";
   }
   console.log(err);
   res.status(code).json({ message: msg });

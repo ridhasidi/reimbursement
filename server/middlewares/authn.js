@@ -11,7 +11,6 @@ async function authentification(req, res, next) {
     }
     req.currentUser = {
       id: user.id,
-      name: user.name,
       role: user.role,
     };
     next();
