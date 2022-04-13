@@ -13,7 +13,11 @@ function errorHandlers(err, req, res, next) {
   } else if (err.message === "INVALID_USER_OR_PASSWORD") {
     code = 401;
     msg = "Invalid user or password";
+  } else if (err.message === "USER_NOT_FOUND") {
+    code = 404;
+    msg = "User not found";
   }
+  console.log(err);
   res.status(code).json({ message: msg });
 }
 
