@@ -1,4 +1,24 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchData } from "../store/actionCreators/dataActions";
+import LoadingPage from "../pages/LoadingPage";
+import ErrorPage from "../pages/ErrorPage";
+
 export default function Table() {
+  const { data, loading, error } = useSelector((state) => state.dataReducer);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchData("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImVtcGxveWVlIiwiaWF0IjoxNjQ5ODYxNjA4fQ.XaOAO_dBE_lzQ87Jmui7VduuGHlx7_0UOp8Mr3CqKfM"));
+  }, [dispatch]);
+  // const user = localStorage.getItem("role")
+  // const user = "employee";
+  console.log(data, loading, error);
+  if (loading) {
+    return <LoadingPage />;
+  }
+  if (error) {
+    return <ErrorPage error={error.message} />;
+  }
   return (
     <>
       <div className="mt-7">

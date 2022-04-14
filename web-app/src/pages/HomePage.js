@@ -2,8 +2,6 @@ import SideBar from "../components/SideBar";
 import Table from "../components/Table";
 
 export default function HomePage() {
-  // const user = localStorage.getItem("role")
-  // const user = "employee";
   return (
     <section className="flex flex-row items-center justify-center min-h-screen bg-sky-300 items-stretch">
       <SideBar />
