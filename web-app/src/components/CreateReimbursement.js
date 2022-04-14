@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import LoadingPage from "../pages/LoadingPage";
 import { createData, setDataError, createDataSuccess } from "../store/actionCreators/dataActions";
 export default function CreateReimbursement() {
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [dateOfPurchase, setDateOfPurchase] = useState("");
@@ -35,13 +37,18 @@ export default function CreateReimbursement() {
     formData.append("amount", +amount);
     formData.append("receipt", file);
     try {
+      setLoading(true);
       const { data } = await createData(formData, localStorage.getItem("access_token"));
       dispatch(createDataSuccess(data));
+      setLoading(false);
       navigate("/");
     } catch (error) {
       dispatch(setDataError(error.data.message));
     }
   };
+  if (loading) {
+    return <LoadingPage />;
+  }
 
   return (
     <div className="md:w-3/4 lg:w-1/2 xl:w-1/3">

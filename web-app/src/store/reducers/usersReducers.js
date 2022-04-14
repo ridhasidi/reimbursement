@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_ERROR, LOGIN_LOADING } from "../actionTypes/userTypes";
+import { LOGIN_SUCCESS, LOGIN_ERROR, LOGIN_LOADING, READ_USER, UPDATE_USER } from "../actionTypes/userTypes";
 
 const initialState = {
   user: {},
@@ -30,9 +30,13 @@ export default function usersReducers(state = initialState, action) {
         ...state,
         loading: action.payload,
       };
+    case READ_USER || UPDATE_USER:
+      return {
+        ...state,
+        user: action.payload,
+      };
 
     default:
-      // break;
       return {
         ...state,
       };
