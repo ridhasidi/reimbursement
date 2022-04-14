@@ -22,8 +22,14 @@ function errorHandlers(err, req, res, next) {
   } else if (err.message === "NOT_ENOUGH_PERMISSION") {
     code = 403;
     msg = "Forbidden to access the resource";
+  } else if (err.name === "MulterError") {
+    code = 400;
+    msg = `Upload error (${err.message})`;
+  } else if (err.message === "INVALID_FILE_FORMAT") {
+    code = 400;
+    msg = "Upload error (Invalid file format)";
   }
-  console.log(err);
+  console.log(err, "<<<<<<<");
   res.status(code).json({ message: msg });
 }
 

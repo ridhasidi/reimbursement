@@ -25,6 +25,9 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: "Date is required",
           },
+          isDate: {
+            msg: "Invalid date format",
+          },
         },
       },
       description: {
