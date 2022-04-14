@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_DATA_SUCCESS, FETCH_DATA_ERROR, FETCH_DATA_LOADING } from "../actionTypes/dataReducers";
+import { FETCH_DATA_SUCCESS, FETCH_DATA_ERROR, FETCH_DATA_LOADING } from "../actionTypes/dataTypes";
 
 const baseUrl = "http://localhost:4000/reimbursements";
 

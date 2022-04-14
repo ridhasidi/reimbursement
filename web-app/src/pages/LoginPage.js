@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login, loginSuccess, setLoginError } from "../store/actionCreators/userActions";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const readEmail = (e) => {
     const { value } = e.target;
     setEmail(value);
@@ -11,10 +15,16 @@ export default function LoginPage() {
     const { value } = e.target;
     setPassword(value);
   };
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    const data = { email, password };
-    console.log(data);
+    const input = { email, password };
+    try {
+      const { data } = await login(input);
+      dispatch(loginSuccess(data));
+      navigate("/");
+    } catch (error) {
+      dispatch(setLoginError(error.data.message));
+    }
   };
   return (
     <section className="flex min-h-screen bg-gray-200 justify-center items-center">

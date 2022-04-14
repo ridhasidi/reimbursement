@@ -1,7 +1,10 @@
+import { useSelector } from "react-redux";
 import SideBar from "../components/SideBar";
 import Table from "../components/Table";
 
 export default function HomePage() {
+  const { access_token, id, role } = useSelector((state) => state.usersReducers);
+  console.log(access_token, id, role);
   return (
     <section className="flex flex-row items-center justify-center min-h-screen bg-sky-300 items-stretch">
       <SideBar />

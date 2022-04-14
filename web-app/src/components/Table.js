@@ -12,7 +12,13 @@ export default function Table() {
   }, [dispatch]);
   // const user = localStorage.getItem("role")
   // const user = "employee";
-  console.log(data, loading, error);
+  // console.log(data, loading, error);
+  const convertCurrency = (number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(number);
+  };
   if (loading) {
     return <LoadingPage />;
   }
@@ -38,7 +44,22 @@ export default function Table() {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            {data.map((e, index) => {
+              return (
+                <tr key={e.id}>
+                  <td className=" border border-slate-300">{index + 1}</td>
+                  <td className=" border border-slate-300">{e.dateOfPurchase.split("T")[0]}</td>
+                  <td className=" border border-slate-300">{e.description}</td>
+                  <td className=" border border-slate-300">{convertCurrency(e.amount)}</td>
+                  <td className=" border border-slate-300">
+                    <button className="bg-blue-300 px-2 rounded text-sm">Show</button>
+                  </td>
+                  <td className=" border border-slate-300">{e.User.name}</td>
+                  <td className=" border border-slate-300">{e.Status.name}</td>
+                </tr>
+              );
+            })}
+            {/* <tr>
               <td className=" border border-slate-300">1</td>
               <td className=" border border-slate-300">11-02-2022</td>
               <td className=" border border-slate-300">Pembayaran A</td>
@@ -48,7 +69,7 @@ export default function Table() {
               </td>
               <td className=" border border-slate-300">David S</td>
               <td className=" border border-slate-300">Submitted</td>
-            </tr>
+            </tr> */}
           </tbody>
         </table>
       </div>
