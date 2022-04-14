@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Damiano David",
+    "role": "employee",
+    "email": "employee1@mail.com",
+    "password": "12345678",
+    "bankAccount": "BCA12345678"
+  },
+  {
+    "name": "Monika Liu",
+    "role": "employee",
+    "email": "employee2@mail.com",
+    "password": "12345678",
+    "bankAccount": "MANDIRI12345678"
+  },
+  {
+    "name": "Hendra Setiawan",
+    "role": "admin",
+    "email": "admin1@mail.com",
+    "password": "12345678",
+    "bankAccount": "admin"
+  }
+]
