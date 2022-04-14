@@ -9,24 +9,6 @@ export const login = (input) => {
     url: baseUrl + "/login",
     data: input,
   });
-  // async (dispatch) => {
-  // try {
-
-  // console.log(data, "???????");
-  //   dispatch(loginSuccess(data["access_token"]));
-
-  //   const resp = await axios({
-  //     method: "GET",
-  //     url: baseUrl + `/${data.id}}`,
-  //     headers: {
-  //       access_token: data["access_token"],
-  //     },
-  //   });
-  //   console.log(resp.data);
-  // } catch (error) {
-  //   dispatch(setLoginError(error.data.message));
-  // }
-  // };
 };
 
 export const readUser = () => {};

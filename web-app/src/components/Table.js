@@ -6,13 +6,11 @@ import ErrorPage from "../pages/ErrorPage";
 
 export default function Table() {
   const { data, loading, error } = useSelector((state) => state.dataReducer);
+  const access_token = localStorage.getItem("access_token");
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchData("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImVtcGxveWVlIiwiaWF0IjoxNjQ5ODYxNjA4fQ.XaOAO_dBE_lzQ87Jmui7VduuGHlx7_0UOp8Mr3CqKfM"));
-  }, [dispatch]);
-  // const user = localStorage.getItem("role")
-  // const user = "employee";
-  // console.log(data, loading, error);
+    dispatch(fetchData(access_token));
+  }, [dispatch, access_token]);
   const convertCurrency = (number) => {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",

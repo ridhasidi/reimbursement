@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { login, loginSuccess, setLoginError } from "../store/actionCreators/userActions";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -20,12 +20,19 @@ export default function LoginPage() {
     const input = { email, password };
     try {
       const { data } = await login(input);
+      localStorage.setItem("access_token", data["access_token"]);
+      localStorage.setItem("role", data.role);
+      localStorage.setItem("id", data.id);
       dispatch(loginSuccess(data));
       navigate("/");
     } catch (error) {
       dispatch(setLoginError(error.data.message));
     }
   };
+
+  if (localStorage.getItem("access_token")) {
+    return <Navigate to="/" />;
+  }
   return (
     <section className="flex min-h-screen bg-gray-200 justify-center items-center">
       <div className="p-4 bg-white  rounded-md md:w-1/3 lg:w-1/4 drop-shadow-lg">

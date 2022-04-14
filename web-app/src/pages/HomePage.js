@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
+import { Outlet, useLocation } from "react-router-dom";
 import SideBar from "../components/SideBar";
 import Table from "../components/Table";
 
 export default function HomePage() {
-  const { access_token, id, role } = useSelector((state) => state.usersReducers);
-  console.log(access_token, id, role);
+  const { pathname } = useLocation();
   return (
     <section className="flex flex-row items-center justify-center min-h-screen bg-sky-300 items-stretch">
       <SideBar />
@@ -12,11 +12,7 @@ export default function HomePage() {
         <div>
           <h1 className="text-center text-3xl font-bold text-sky-700">Dashboard</h1>
         </div>
-        <div className="grow flex flex-col mt-3 justify-center bg-white px-8 drop-shadow-lg rounded-md">
-          <Table />
-        </div>
-        {/* {}
-         */}
+        <div className="grow flex flex-col mt-3 justify-start items-center bg-white px-8 drop-shadow-lg rounded-md">{pathname === "/" ? <Table /> : <Outlet />}</div>
       </div>
     </section>
   );

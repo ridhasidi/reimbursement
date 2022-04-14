@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
+import { Link } from "react-router-dom";
 export default function SideBar() {
   const [showSidebar, setShowSidebar] = useState(true);
   return (
@@ -10,7 +11,22 @@ export default function SideBar() {
             {<IoClose />}
           </button>
           <h2 className="my-5 text-4xl font-semibold text-yellow-300">Reimbursement</h2>
-          <div className="flex flex-col"></div>
+          <div className="flex flex-col">
+            {/* <div>
+              <h1>Nama User</h1>
+              <p>role</p>
+            </div> */}
+            <Link className="text-xl mb-2" to="/">
+              Home
+            </Link>
+            <Link className="text-xl mb-2" to="/profile">
+              Profile
+            </Link>
+            <Link className="text-xl mb-2" to="/create-new">
+              Create
+            </Link>
+            <button className="text-xl mb-2 text-left">Log out</button>
+          </div>
         </div>
       ) : (
         <svg onClick={() => setShowSidebar(!showSidebar)} className="fixed  z-30 flex items-center cursor-pointer left-6 top-6" fill="rgb(3 105 161)" viewBox="0 0 100 80" width="30" height="30">

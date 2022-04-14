@@ -1,7 +1,8 @@
-// import logo from "./logo.svg";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import CreateReimbursement from "./components/CreateReimbursement";
 import EditProfileForm from "./components/EditProfileForm";
+import ProtectedRoute from "./components/ProtectedRoute";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 
@@ -10,25 +11,18 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/" element={<HomePage />}>
-          <Route path="/profile" element={<EditProfileForm />} />
-          <Route path="/create" />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="profile" element={<EditProfileForm />} />
+          <Route path="create-new" element={<CreateReimbursement />} />
         </Route>
       </Routes>
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
     </div>
   );
 }
