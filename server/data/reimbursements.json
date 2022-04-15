@@ -1,0 +1,66 @@
+[
+  {
+    "dateOfPurchase": "2022-01-01",
+    "description": "Pembayaran A",
+    "amount": 100000,
+    "receipt": "https://upload.wikimedia.org/wikipedia/commons/b/b9/MaxValu_Matsuyama_Store_receipt_JPY254_20191109.jpg",
+    "UserId": 1,
+    "StatusId": 3
+  },
+  {
+    "dateOfPurchase": "2022-01-10",
+    "description": "Pembayaran B",
+    "amount": 250000,
+    "receipt": "https://upload.wikimedia.org/wikipedia/commons/b/b9/MaxValu_Matsuyama_Store_receipt_JPY254_20191109.jpg",
+    "UserId": 1,
+    "StatusId": 3
+  },
+  {
+    "dateOfPurchase": "2022-01-15",
+    "description": "Pembayaran C",
+    "amount": 100000,
+    "receipt": "https://upload.wikimedia.org/wikipedia/commons/b/b9/MaxValu_Matsuyama_Store_receipt_JPY254_20191109.jpg",
+    "UserId": 1,
+    "StatusId": 4
+  },
+  {
+    "dateOfPurchase": "2022-01-16",
+    "description": "Pembayaran D",
+    "amount": 300000,
+    "receipt": "https://upload.wikimedia.org/wikipedia/commons/b/b9/MaxValu_Matsuyama_Store_receipt_JPY254_20191109.jpg",
+    "UserId": 1,
+    "StatusId": 2
+  },
+  {
+    "dateOfPurchase": "2022-01-22",
+    "description": "Pembayaran E",
+    "amount": 80000,
+    "receipt": "https://upload.wikimedia.org/wikipedia/commons/b/b9/MaxValu_Matsuyama_Store_receipt_JPY254_20191109.jpg",
+    "UserId": 1,
+    "StatusId": 1
+  },
+  {
+    "dateOfPurchase": "2022-01-13",
+    "description": "Pembayaran A",
+    "amount": 100000,
+    "receipt": "https://upload.wikimedia.org/wikipedia/commons/b/b9/MaxValu_Matsuyama_Store_receipt_JPY254_20191109.jpg",
+    "UserId": 2,
+    "StatusId": 4
+  },
+  {
+    "dateOfPurchase": "2022-01-14",
+    "description": "Pembayaran B",
+    "amount": 200000,
+    "receipt": "https://upload.wikimedia.org/wikipedia/commons/b/b9/MaxValu_Matsuyama_Store_receipt_JPY254_20191109.jpg",
+    "UserId": 2,
+    "StatusId": 2
+  },
+  {
+    "dateOfPurchase": "2022-01-22",
+    "description": "Pembayaran C",
+    "amount": 120000,
+    "receipt": "https://upload.wikimedia.org/wikipedia/commons/b/b9/MaxValu_Matsuyama_Store_receipt_JPY254_20191109.jpg",
+    "UserId": 2,
+    "StatusId": 1
+  }
+]
