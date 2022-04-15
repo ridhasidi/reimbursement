@@ -26,7 +26,7 @@ export default function LoginPage() {
       dispatch(loginSuccess(data));
       navigate("/");
     } catch (error) {
-      dispatch(setLoginError(error.data.message));
+      dispatch(setLoginError(error));
     }
   };
 

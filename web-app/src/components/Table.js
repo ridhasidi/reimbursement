@@ -82,6 +82,7 @@ export default function Table() {
 
   if (errorUpdate) {
     Swal.fire("Info", `${errorUpdate}`, "info");
+    dispatch(setUpdateStatusError(""));
   }
   if (loading) {
     return <LoadingPage />;
