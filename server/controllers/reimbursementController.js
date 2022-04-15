@@ -10,7 +10,7 @@ class Controller {
       let params = {
         order: [["dateOfPurchase", "ASC"]],
         attributes: {
-          exclude: ["createdAt", "updatedAt", "UserId", "StatusId"],
+          exclude: ["createdAt", "updatedAt", "UserId"],
         },
         include: [
           { model: User, attributes: ["name", "email"] },
