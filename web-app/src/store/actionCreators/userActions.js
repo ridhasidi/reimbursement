@@ -1,7 +1,7 @@
 import axios from "axios";
 import { LOGIN_SUCCESS, LOGIN_LOADING, LOGIN_ERROR, READ_USER, UPDATE_USER } from "../actionTypes/userTypes";
 
-const baseUrl = "http://localhost:4000";
+const baseUrl = "https://ridhasidi-reimbursement.herokuapp.com";
 
 export const login = (input) => {
   return axios({
