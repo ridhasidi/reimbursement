@@ -1,7 +1,7 @@
 import axios from "axios";
 import { FETCH_DATA_SUCCESS, FETCH_DATA_ERROR, FETCH_DATA_LOADING, CREATE_DATA_SUCCESS, UPDATE_STATUS_ERROR } from "../actionTypes/dataTypes";
 
-const baseUrl = "http://localhost:4000/reimbursements";
+const baseUrl = "https://ridhasidi-reimbursement.herokuapp.com/reimbursements";
 
 export const fetchData = (token) => {
   return async (dispatch) => {
