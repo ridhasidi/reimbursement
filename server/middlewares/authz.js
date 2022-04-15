@@ -1,16 +1,22 @@
-const { Reimbursement } = require("../models");
+const { Reimbursement, User } = require("../models");
 
 // check UserId of each Reimbursement
 async function authorization(req, res, next) {
   try {
     const UserId = req.currentUser.id;
     const { id } = req.params;
+    const user = await User.findByPk(UserId);
     const data = await Reimbursement.findByPk(id);
+    if (!user) {
+      throw new Error("USER_NOT_FOUND");
+    }
     if (!data) {
       throw new Error("DATA_NOT_FOUND");
     }
-    if (data.UserId !== UserId) {
-      throw new Error("NOT_ENOUGH_PERMISSION");
+    if (user.role !== "admin") {
+      if (data.UserId !== UserId) {
+        throw new Error("NOT_ENOUGH_PERMISSION");
+      }
     }
     next();
   } catch (error) {

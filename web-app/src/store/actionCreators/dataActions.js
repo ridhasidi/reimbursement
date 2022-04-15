@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_DATA_SUCCESS, FETCH_DATA_ERROR, FETCH_DATA_LOADING, CREATE_DATA_SUCCESS } from "../actionTypes/dataTypes";
+import { FETCH_DATA_SUCCESS, FETCH_DATA_ERROR, FETCH_DATA_LOADING, CREATE_DATA_SUCCESS, UPDATE_STATUS_ERROR } from "../actionTypes/dataTypes";
 
 const baseUrl = "http://localhost:4000/reimbursements";
 
@@ -32,6 +32,34 @@ export const createData = (input, token) => {
       "Content-Type": "multipart/form-data",
     },
   });
+};
+
+export const updateStatus = (input) => {
+  // console.log(input.StatusId, "?????????");
+  return axios({
+    method: "PATCH",
+    url: baseUrl + `/${input.id}`,
+    data: {
+      StatusId: input.StatusId,
+    },
+    headers: {
+      access_token: input["access_token"],
+    },
+  });
+};
+
+// export const updateStatusSuccess = (payload) => {
+//   return {
+//     type: UPDATE_STATUS_SUCCESS,
+//     payload,
+//   };
+// };
+
+export const setUpdateStatusError = (payload) => {
+  return {
+    type: UPDATE_STATUS_ERROR,
+    payload,
+  };
 };
 
 export const createDataSuccess = (payload) => {

@@ -7,9 +7,9 @@ import { readUser, updateSuccess, updateUser } from "../store/actionCreators/use
 export default function EditProfileForm() {
   const { user, error } = useSelector((state) => state.usersReducers);
   const [loading, setLoading] = useState(false);
-  const [name, setName] = useState(user.name);
-  const [email] = useState(user.email);
-  const [bankAccount, setBankAccount] = useState(user.bankAccount);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [bankAccount, setBankAccount] = useState("");
   const dispatch = useDispatch();
   const readName = (e) => {
     const { value } = e.target;
@@ -23,6 +23,12 @@ export default function EditProfileForm() {
   useEffect(() => {
     dispatch(readUser(localStorage.getItem("id"), localStorage.getItem("access_token")));
   }, [dispatch]);
+
+  useEffect(() => {
+    setEmail(user.email);
+    setName(user.name);
+    setBankAccount(user.bankAccount);
+  }, [user, dispatch]);
 
   const submit = async (e) => {
     e.preventDefault();

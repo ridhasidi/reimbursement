@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchData } from "../store/actionCreators/dataActions";
+import { fetchData, setDataLoading, setUpdateStatusError, updateStatus } from "../store/actionCreators/dataActions";
 import LoadingPage from "../pages/LoadingPage";
 import ErrorPage from "../pages/ErrorPage";
 
 export default function Table() {
-  const { data, loading, error } = useSelector((state) => state.dataReducer);
+  const { data, loading, error, errorUpdate } = useSelector((state) => state.dataReducer);
   const access_token = localStorage.getItem("access_token");
   const dispatch = useDispatch();
   useEffect(() => {
@@ -17,6 +17,71 @@ export default function Table() {
       currency: "IDR",
     }).format(number);
   };
+  const role = localStorage.getItem("role");
+
+  const accept = async (id, StatusId) => {
+    if (StatusId === 3) {
+      dispatch(setUpdateStatusError("Status is already 'Completed'"));
+    } else if (StatusId === 4) {
+      dispatch(setUpdateStatusError("Status is already 'Rejected'"));
+    } else if (StatusId === 2) {
+      dispatch(setUpdateStatusError("Status is already 'On Progress'"));
+    } else {
+      try {
+        dispatch(setDataLoading(true));
+        await updateStatus({
+          id,
+          StatusId: 2,
+          access_token,
+        });
+        dispatch(fetchData(access_token));
+      } catch (error) {
+        dispatch(setUpdateStatusError(error.data.message));
+      }
+    }
+  };
+
+  const reject = async (id, StatusId) => {
+    if (StatusId === 3) {
+      dispatch(setUpdateStatusError("Status is already 'Completed'"));
+    } else if (StatusId === 4) {
+      dispatch(setUpdateStatusError("Status is already 'Rejected'"));
+    } else {
+      try {
+        dispatch(setDataLoading(true));
+        await updateStatus({
+          id,
+          StatusId: 4,
+          access_token,
+        });
+        dispatch(fetchData(access_token));
+      } catch (error) {
+        dispatch(setUpdateStatusError(error.data.message));
+      }
+    }
+  };
+
+  const complete = async (id, StatusId) => {
+    if (StatusId !== 2) {
+      dispatch(setUpdateStatusError("Status must be 'On Progress'"));
+    } else {
+      try {
+        dispatch(setDataLoading(true));
+        await updateStatus({
+          id,
+          StatusId: 3,
+          access_token,
+        });
+        dispatch(fetchData(access_token));
+      } catch (error) {
+        dispatch(setUpdateStatusError(error.data.message));
+      }
+    }
+  };
+
+  if (errorUpdate) {
+    console.log(errorUpdate);
+  }
   if (loading) {
     return <LoadingPage />;
   }
@@ -39,6 +104,15 @@ export default function Table() {
               <th className="py-1 border border-slate-300">Receipt</th>
               <th className="py-1 border border-slate-300">Employee</th>
               <th className="py-1 border border-slate-300">Status</th>
+              {role === "admin" ? (
+                <>
+                  <th className="py-1 border border-slate-300">Accept</th>
+                  <th className="py-1 border border-slate-300">Reject</th>
+                  <th className="py-1 border border-slate-300">Completed</th>
+                </>
+              ) : (
+                <></>
+              )}
             </tr>
           </thead>
           <tbody>
@@ -50,10 +124,32 @@ export default function Table() {
                   <td className=" border border-slate-300">{e.description}</td>
                   <td className=" border border-slate-300">{convertCurrency(e.amount)}</td>
                   <td className=" border border-slate-300">
-                    <button className="bg-blue-300 px-2 rounded text-sm">Show</button>
+                    <button className="bg-blue-300 hover:bg-blue-400 py-1 px-2 my-1 rounded text-sm">Show</button>
                   </td>
                   <td className=" border border-slate-300">{e.User.name}</td>
                   <td className=" border border-slate-300">{e.Status.name}</td>
+                  {role === "admin" ? (
+                    <>
+                      <td className="py-1 px-1 border border-slate-300">
+                        {" "}
+                        <button className="bg-green-300 hover:bg-green-400 py-1 px-2 rounded text-sm" onClick={() => accept(e.id, e.StatusId)}>
+                          Accept
+                        </button>
+                      </td>
+                      <td className="py-1 px-1 border border-slate-300">
+                        <button className="bg-rose-300 hover:bg-rose-400 py-1 px-2 rounded text-sm" onClick={() => reject(e.id, e.StatusId)}>
+                          Reject
+                        </button>
+                      </td>
+                      <td className="py-1 px-1 border border-slate-300">
+                        <button className="bg-violet-300 hover:bg-violet-400 py-1 px-2 rounded text-sm" onClick={() => complete(e.id, e.StatusId)}>
+                          Completed
+                        </button>
+                      </td>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </tr>
               );
             })}

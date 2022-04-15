@@ -29,6 +29,7 @@ function errorHandlers(err, req, res, next) {
     code = 400;
     msg = "Upload error (Invalid file format)";
   }
+  console.log(err, "<<<<<<<<<<<<<");
   res.status(code).json({ message: msg });
 }
 

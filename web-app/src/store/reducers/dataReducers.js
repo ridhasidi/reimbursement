@@ -1,10 +1,11 @@
-import { FETCH_DATA_SUCCESS, FETCH_DATA_ERROR, FETCH_DATA_LOADING, CREATE_DATA_SUCCESS } from "../actionTypes/dataTypes";
+import { FETCH_DATA_SUCCESS, FETCH_DATA_ERROR, FETCH_DATA_LOADING, CREATE_DATA_SUCCESS, UPDATE_STATUS_ERROR } from "../actionTypes/dataTypes";
 
 const initialState = {
   data: [],
   error: null,
   loading: true,
   newEntry: {},
+  errorUpdate: null,
 };
 
 export default function dataReducers(state = initialState, action) {
@@ -28,6 +29,11 @@ export default function dataReducers(state = initialState, action) {
       return {
         ...state,
         newEntry: action.payload,
+      };
+    case UPDATE_STATUS_ERROR:
+      return {
+        ...state,
+        errorUpdate: action.payload,
       };
 
     default:

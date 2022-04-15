@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export default function SideBar() {
   const [showSidebar, setShowSidebar] = useState(true);
+  const navigate = useNavigate();
+  const role = localStorage.getItem("role");
+  const logout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
   return (
     <>
       {showSidebar ? (
@@ -12,20 +18,24 @@ export default function SideBar() {
           </button>
           <h2 className="my-5 text-4xl font-semibold text-yellow-300">Reimbursement</h2>
           <div className="flex flex-col">
-            {/* <div>
-              <h1>Nama User</h1>
-              <p>role</p>
-            </div> */}
             <Link className="text-xl mb-2" to="/">
               Home
             </Link>
-            <Link className="text-xl mb-2" to="/profile">
-              Profile
-            </Link>
-            <Link className="text-xl mb-2" to="/create-new">
-              Create
-            </Link>
-            <button className="text-xl mb-2 text-left">Log out</button>
+            {role === "employee" ? (
+              <>
+                <Link className="text-xl mb-2" to="/profile">
+                  Profile
+                </Link>
+                <Link className="text-xl mb-2" to="/create-new">
+                  Create
+                </Link>
+              </>
+            ) : (
+              <></>
+            )}
+            <button onClick={logout} className="text-xl mb-2 text-left">
+              Log out
+            </button>
           </div>
         </div>
       ) : (
