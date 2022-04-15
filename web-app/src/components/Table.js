@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchData, setDataLoading, setUpdateStatusError, updateStatus } from "../store/actionCreators/dataActions";
 import LoadingPage from "../pages/LoadingPage";
 import ErrorPage from "../pages/ErrorPage";
+import { Link } from "react-router-dom";
 
 export default function Table() {
   const { data, loading, error, errorUpdate } = useSelector((state) => state.dataReducer);
@@ -18,7 +19,6 @@ export default function Table() {
     }).format(number);
   };
   const role = localStorage.getItem("role");
-
   const accept = async (id, StatusId) => {
     if (StatusId === 3) {
       dispatch(setUpdateStatusError("Status is already 'Completed'"));
@@ -119,15 +119,17 @@ export default function Table() {
             {data.map((e, index) => {
               return (
                 <tr key={e.id}>
-                  <td className=" border border-slate-300">{index + 1}</td>
-                  <td className=" border border-slate-300">{e.dateOfPurchase.split("T")[0]}</td>
-                  <td className=" border border-slate-300">{e.description}</td>
-                  <td className=" border border-slate-300">{convertCurrency(e.amount)}</td>
-                  <td className=" border border-slate-300">
-                    <button className="bg-blue-300 hover:bg-blue-400 py-1 px-2 my-1 rounded text-sm">Show</button>
+                  <td className="p-1 border border-slate-300">{index + 1}</td>
+                  <td className="p-1 border border-slate-300">{e.dateOfPurchase.split("T")[0]}</td>
+                  <td className="p-1 border border-slate-300">{e.description}</td>
+                  <td className="p-1 border border-slate-300">{convertCurrency(e.amount)}</td>
+                  <td className="p-1 border border-slate-300">
+                    <Link to={`receipt/${e.id}`} state={e} className="bg-blue-300 hover:bg-blue-400 py-1 px-2 my-1 rounded text-sm">
+                      Show
+                    </Link>
                   </td>
-                  <td className=" border border-slate-300">{e.User.name}</td>
-                  <td className=" border border-slate-300">{e.Status.name}</td>
+                  <td className="p-1  border border-slate-300">{e.User.name}</td>
+                  <td className="p-1  border border-slate-300">{e.Status.name}</td>
                   {role === "admin" ? (
                     <>
                       <td className="py-1 px-1 border border-slate-300">
@@ -153,17 +155,6 @@ export default function Table() {
                 </tr>
               );
             })}
-            {/* <tr>
-              <td className=" border border-slate-300">1</td>
-              <td className=" border border-slate-300">11-02-2022</td>
-              <td className=" border border-slate-300">Pembayaran A</td>
-              <td className=" border border-slate-300">150000</td>
-              <td className=" border border-slate-300">
-                <button className="bg-blue-300 px-2 rounded text-sm">Show</button>
-              </td>
-              <td className=" border border-slate-300">David S</td>
-              <td className=" border border-slate-300">Submitted</td>
-            </tr> */}
           </tbody>
         </table>
       </div>

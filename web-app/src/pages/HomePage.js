@@ -1,4 +1,3 @@
-// import { useSelector } from "react-redux";
 import { Outlet, useLocation } from "react-router-dom";
 import SideBar from "../components/SideBar";
 import Table from "../components/Table";
