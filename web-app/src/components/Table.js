@@ -1,23 +1,24 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from "chart.js";
+import { Bar, Doughnut } from "react-chartjs-2";
+import Swal from "sweetalert2";
 import { fetchData, setDataLoading, setUpdateStatusError, updateStatus } from "../store/actionCreators/dataActions";
 import LoadingPage from "../pages/LoadingPage";
 import ErrorPage from "../pages/ErrorPage";
-import { Link } from "react-router-dom";
+import { composeData, composeData2, options } from "../helpers/composeData";
+import { convertCurrency } from "../helpers/convertCurrency";
 
 export default function Table() {
   const { data, loading, error, errorUpdate } = useSelector((state) => state.dataReducer);
+
+  ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title);
   const access_token = localStorage.getItem("access_token");
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchData(access_token));
   }, [dispatch, access_token]);
-  const convertCurrency = (number) => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-    }).format(number);
-  };
   const role = localStorage.getItem("role");
   const accept = async (id, StatusId) => {
     if (StatusId === 3) {
@@ -80,7 +81,7 @@ export default function Table() {
   };
 
   if (errorUpdate) {
-    console.log(errorUpdate);
+    Swal.fire("Info", `${errorUpdate}`, "info");
   }
   if (loading) {
     return <LoadingPage />;
@@ -93,7 +94,20 @@ export default function Table() {
       <div className="mt-7">
         <h1 className="text-center text-xl font-semibold">Reimbursements</h1>
       </div>
-      <div className="grow w-full mt-3">
+      <div className="flex">
+        {role === "admin" ? (
+          <div>
+            <Bar options={options} data={composeData2(data)} />
+          </div>
+        ) : (
+          <></>
+        )}
+
+        <div>
+          <Doughnut data={composeData(data)} />
+        </div>
+      </div>
+      <div className="grow w-full mt-3 mb-7">
         <table className="w-full text-center border-collapse border border-slate-300">
           <thead className="bg-sky-600 text-amber-50">
             <tr>
